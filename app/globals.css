@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 :root {
+  --dark1: 80, 73, 70;
+  --white1: 234, 234, 234;
+
+
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -10,9 +14,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-hex: 255, 255, 255;
+    --background-start-rgb: var(--dark1);
+    --background-end-rgb: var(--dark1);
   }
 }
 
@@ -35,5 +39,17 @@ body {
 .hero-container {
   display: flex;
   height: 100vh;
+  
+}
+
+.hero-img {
+  position:absolute;
+  height: 100%;
+  right: 0;
+  max-width: none;
+}
+
+.font-1 {
+  font-family: Grandslang, sans-serif;
 }
 
