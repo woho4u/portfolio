@@ -14,7 +14,7 @@ const Header = ({ className, bgClass }: Props) => {
         <div></div>
         <div className="navbar flex">
           <Navlink title="About" bgClass={bgClass} />
-          <Navlink title="Contact Me" bgClass={bgClass} />
+          <Navlink link="#footer" title="Contact Me" bgClass={bgClass} />
         </div>
       </div>
     </>
