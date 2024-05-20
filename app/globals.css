@@ -29,6 +29,8 @@
 }
 
 body {
+  display: flex;
+  justify-content: center;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -78,6 +80,9 @@ h1 {
   display: flex;
   justify-content:space-between;
   padding: 20px;
+  height: fit-content;
+  width: 100%;
+  position: inherit;
 }
 .sticky-header {
   position: fixed;
@@ -95,13 +100,16 @@ h1 {
   
 }
 
+
 .main-container {
   margin-top: 100vh;
+  width: 100%;
 }
 
 .hero-container {
   display: flex;
   height: 100vh;
+  max-height: 1000px;
   z-index: -1;
   position: fixed; 
   top: 0;
@@ -117,7 +125,7 @@ h1 {
 .hero-img {
   position: absolute;
   height: 100%;
-  right: -2400px;
+  right: -2100px;
   max-width: none;
   z-index: -10;
 }
@@ -130,7 +138,7 @@ h1 {
   align-items: center;
 }
 #hero-title-container {
-  width: 900px;
+  width: fit-content;
 }
 
 #title-intro {
@@ -154,6 +162,26 @@ h1 {
 #hero-para-title {
 
 }
+
+@media screen and (max-width: 1850px){
+  .hero-img {
+    right: -2300px;
+  }
+}
+
+@media screen and (max-width: 1639px){
+  .hero-card {
+    width: 680px;
+  }
+}
+@media screen and (max-width: 1430px){
+  .hero-title {
+    font-size: 130px;
+    height: 130px;
+  }
+
+}
+
 
 
 footer {

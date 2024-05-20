@@ -7,7 +7,8 @@ const StickyHeader = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 50);
+      setIsSticky(window.scrollY > 600);
+      console.log(window.scrollY);
     };
 
     window.addEventListener("scroll", handleScroll);

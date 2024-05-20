@@ -5,9 +5,9 @@ const Hero = () => {
     <>
       <div className="hero-container">
         <div className="hero-card text-container">
-          <h1 id="title-intro" className="fantasy">
+          {/* <h1 id="title-intro" className="fantasy">
             Hi, my name is
-          </h1>
+          </h1> */}
           <div id="hero-title-container">
             <h1 className="hero1 eerie-color fantasy hero-title">Oliver</h1>
             <h1 className="hero2 eerie-color fantasy hero-title">Kvamme</h1>
