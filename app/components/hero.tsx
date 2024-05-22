@@ -1,34 +1,113 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
+
+interface LettersProps {
+  words: string[];
+  colors: string[];
+}
+
+const Letters = ({ words, colors }: LettersProps) => {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentLetterIndex, setCurrentLetterIndex] = useState(-1);
+  const [applyBehind, setApplyBehind] = useState(false);
+  const [outLetterIndex, setOutLetterIndex] = useState(-1);
+  const [transitionOut, setTransitionOut] = useState(false);
+
+  useEffect(() => {
+    const wordInterval = setInterval(() => {
+      setTransitionOut(true);
+    }, 4000); // Change word every 4 seconds
+
+    return () => clearInterval(wordInterval);
+  }, [words.length]);
+
+  useEffect(() => {
+    if (transitionOut) {
+      const outInterval = setInterval(() => {
+        setOutLetterIndex((prevIndex) => prevIndex + 1);
+      }, 50);
+      return () => clearInterval(outInterval);
+    }
+  }, [transitionOut]);
+
+  useEffect(() => {
+    if (!applyBehind) {
+      const behindTimeout = setTimeout(() => {
+        setApplyBehind(true);
+      }, 50);
+      return () => clearTimeout(behindTimeout);
+    }
+  }, [applyBehind]);
+
+  useEffect(() => {
+    if (applyBehind && currentLetterIndex < words[currentWordIndex].length) {
+      const letterInterval = setInterval(() => {
+        setCurrentLetterIndex((prevIndex) => prevIndex + 1);
+      }, 50);
+
+      return () => clearInterval(letterInterval);
+    }
+  }, [applyBehind, currentLetterIndex, currentWordIndex, words]);
+
+  useEffect(() => {
+    if (outLetterIndex === words[currentWordIndex].length) {
+      setCurrentWordIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % words.length;
+        setCurrentLetterIndex(-1); // Reset letter index for the new word
+        setOutLetterIndex(-1); // Reset out letter index for the new word
+        setApplyBehind(false); // Reset behind application
+        setTransitionOut(false); // Reset transition out state
+        return nextIndex;
+      });
+    }
+  }, [outLetterIndex, words, currentWordIndex]);
+
+  return (
+    <>
+      {words.map((word, wordIndex) => (
+        <div className={`word ${colors[wordIndex]}`} key={wordIndex}>
+          {word.split("").map((letter, letterIndex) => {
+            let className = "out";
+            if (wordIndex === currentWordIndex) {
+              if (transitionOut && letterIndex <= outLetterIndex) {
+                className = "out";
+              } else if (letterIndex <= currentLetterIndex) {
+                className = "in";
+              } else if (applyBehind) {
+                className = "behind";
+              }
+            }
+            return (
+              <span key={letterIndex} className={`letter ${className}`}>
+                {letter}
+              </span>
+            );
+          })}
+        </div>
+      ))}
+    </>
+  );
+};
 
 const Hero = () => {
+  const words = [
+    "Oliver Kvamme Eriksen.",
+    "a developer.",
+    "a graphic designer.",
+    "a learner.",
+  ];
+  const colors = ["wisteria", "belize", "pomegranate", "green"];
+
   return (
     <>
       <div className="hero-container">
-        <div className="hero-card text-container">
-          {/* <h1 id="title-intro" className="fantasy">
-            Hi, my name is
-          </h1> */}
-          <div id="hero-title-container">
-            <h1 className="hero1 eerie-color fantasy hero-title">Oliver</h1>
-            <h1 className="hero2 eerie-color fantasy hero-title">Kvamme</h1>
-            <h1 className="hero3 eerie-color fantasy hero-title">Eriksen</h1>
-          </div>
-
-          <div className="separate w-3/4 eerie-background h-1 ml-3"></div>
-
-          <div id="hero-para-container">
-            <div className="bg-hero-gray bg-opacity-50 rounded m-4">
-              <p id="hero-para" className="eerie-color">
-                Im am a fullstack developer, with Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Amet suscipit rem id, molestias,
-                est, saepe nesciunt iste aperiam fugit ullam repellendus fugiat
-                impedit illo odit assumenda doloremque dolore unde consequatur.
-              </p>
-            </div>
+        <div className="hero-content">
+          <div className="hero-title">
+            <p>Hello, I am</p>
+            <Letters colors={colors} words={words} />
+            <p className="hero-word-container"></p>
           </div>
         </div>
-
-        <img className="hero-img" src="punk-header2.png" alt="" />
       </div>
     </>
   );

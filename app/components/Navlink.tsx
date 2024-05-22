@@ -3,16 +3,14 @@ import React from "react";
 interface Props {
   title: string;
   link?: string;
-  bgClass?: string;
+  Class?: string;
 }
 
-const Navlink = ({ title, link = "#", bgClass }: Props) => {
+const Navlink = ({ title, link = "#", Class }: Props) => {
   return (
-    <div className={`${bgClass} p-1 mx-8`}>
-      <a className="navlink fantasy" href={link}>
-        {title}
-      </a>
-    </div>
+    <a className={`${Class} navlink font-sans`} href={link}>
+      {title}
+    </a>
   );
 };
 

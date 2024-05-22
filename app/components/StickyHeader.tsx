@@ -20,11 +20,11 @@ const StickyHeader = () => {
   return (
     <>
       <Header
-        bgClass="ivory-color"
+        Class="offwhite"
         className={`sticky-header ${isSticky ? "visible" : ""}`}
       />
 
-      <Header bgClass="bg-opacity-50" />
+      <Header Class="offwhite" />
     </>
   );
 };
