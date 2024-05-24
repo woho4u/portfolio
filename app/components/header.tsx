@@ -12,9 +12,10 @@ const Header = ({ className, Class }: Props) => {
     <>
       <div className={`w-full ${className} header px-10 py-4`}>
         <div className="navbar flex">
-
           <div className="nav-block">
-            <a href="#">Oliver Kvamme Eriksen</a>
+            <a className="home-logo" href="#">
+              {/* Oliver Kvamme Eriksen */}
+            </a>
           </div>
 
           <div className="nav-block">
@@ -22,7 +23,7 @@ const Header = ({ className, Class }: Props) => {
               <Navlink title="Home" Class={Class} />
             </div>
             <div className="nav-item">
-              <Navlink link="#about" title="About" Class={Class} />
+              <Navlink link="#about-me" title="About" Class={Class} />
             </div>
             <div className="nav-item">
               <Navlink link="#projects" title="Projects" Class={Class} />
@@ -31,7 +32,6 @@ const Header = ({ className, Class }: Props) => {
               <Navlink link="#contact-me" title="Contact" Class={Class} />
             </div>
           </div>
-          
 
           {/* <div className="box-1">
             <div className="btn btn-one">

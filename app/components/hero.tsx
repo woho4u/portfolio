@@ -1,5 +1,8 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
+import ScrollIndicator from "./ScrollIndicator";
+import Link from "next/link";
+import Olink from "./Olink";
 
 interface LettersProps {
   words: string[];
@@ -15,8 +18,6 @@ const Letters = ({ words, colors }: LettersProps) => {
 
   useEffect(() => {
     const wordInterval = setInterval(() => {
-      console.log("useEffect wordinterval");
-
       setTransitionOut(true);
     }, 4000); // Change word every 4 seconds
 
@@ -25,19 +26,15 @@ const Letters = ({ words, colors }: LettersProps) => {
 
   useEffect(() => {
     if (transitionOut) {
-      console.log("useEffect transitionOut");
-
       const outInterval = setInterval(() => {
         setOutLetterIndex((prevIndex) => prevIndex + 1);
-      }, 20);
+      }, 30);
       return () => clearInterval(outInterval);
     }
   }, [transitionOut]);
 
   useEffect(() => {
     if (!applyBehind) {
-      console.log("useEffect behindTimeout");
-
       const behindTimeout = setTimeout(() => {
         setApplyBehind(true);
       }, 50);
@@ -47,7 +44,6 @@ const Letters = ({ words, colors }: LettersProps) => {
 
   useEffect(() => {
     if (applyBehind && currentLetterIndex < words[currentWordIndex].length) {
-      console.log("useEffect letterinterval");
       const letterInterval = setInterval(() => {
         setCurrentLetterIndex((prevIndex) => prevIndex + 1);
       }, 40);
@@ -58,7 +54,6 @@ const Letters = ({ words, colors }: LettersProps) => {
 
   useEffect(() => {
     if (outLetterIndex === words[currentWordIndex].length) {
-      console.log("useEffect reset");
       setCurrentWordIndex((prevIndex) => {
         const nextIndex = (prevIndex + 1) % words.length;
         setCurrentLetterIndex(-1); // Reset letter index for the new word
@@ -101,29 +96,52 @@ const Letters = ({ words, colors }: LettersProps) => {
   );
 };
 
-const Hero = () => {
+interface Props {
+  handleClick: (e: React.MouseEvent) => void;
+  href: string;
+}
+
+const Hero = ({ handleClick }: Props) => {
   const words = [
     "Oliver Kvamme Eriksen.",
     "a Developer.",
     "a Graphic Designer.",
-    "a Learner.",
+    "a Student.",
   ];
-  const colors = ["wisteria", "belize", "pomegranate", "green"];
+  const colors = ["pomegranate", "belize", "wisteria", "green"];
 
   return (
     <>
       <div className="hero-container">
         <div className="hero-content">
-          <div className="hero-title">
-            <p>Hello, I am&nbsp;</p>
+          <div className="hero-title ">
+            <h1>Hi, I am&nbsp;</h1>
             <span>
-            <Letters colors={colors} words={words} />
+              <Letters colors={colors} words={words} />
             </span>
           </div>
           <div className="hero-para-container">
-            <p className="hero-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit doloremque, incidunt impedit mollitia voluptatem tempora architecto maiores    </p>
+            <p className="hero-para">
+              I am a Result-Oriented Fullstack Web developer and graphic
+              designer. In other words, I <strong>create</strong>, and I{" "}
+              <i>love</i> it.{" "}
+            </p>
+          </div>
+          <div id="container">
+            <button className="learn-more">
+              <span className="circle" aria-hidden="true">
+                <span className="icon arrow"></span>
+              </span>
+              <Olink
+                href="#about-me"
+                onClick={handleClick}
+                className="button-text"
+                scroll={true}
+              />
+            </button>
           </div>
         </div>
+        <ScrollIndicator />
       </div>
     </>
   );
